@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Trash2, HardDrive, Calendar, Clock, CloudUpload, FileText, Share2, MoreVertical, Settings, DownloadCloud } from 'lucide-react';
+import { Search, Trash2, HardDrive, Calendar, Clock, CloudUpload, FileText, Share2, MoreVertical, Settings, DownloadCloud, Eye } from 'lucide-react';
 
 const UploadsTab = () => {
     // Premium Dummy data
@@ -131,6 +131,11 @@ const UploadsTab = () => {
 
                             {/* Action Buttons */}
                             <div className="flex items-center justify-end gap-2 w-full md:w-auto">
+                                <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-[#2b3a8c] hover:bg-[#1e2a6a] dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-[13px] font-semibold rounded-xl transition-all shadow-md shadow-[#2b3a8c]/20 dark:shadow-blue-900/20 hover:shadow-lg hover:-translate-y-0.5">
+                                    <Eye className="w-4 h-4" />
+                                    Preview
+                                </button>
+
                                 <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-zinc-800 text-gray-700 dark:text-zinc-300 border border-gray-200 dark:border-zinc-700 hover:border-gray-300 dark:hover:border-zinc-600 hover:bg-gray-50 dark:hover:bg-zinc-700/50 text-[13px] font-semibold rounded-xl transition-all shadow-sm">
                                     <Settings className="w-4 h-4" />
                                     Manage
