@@ -4,7 +4,7 @@ import { ShieldCheck, Zap, Globe, Heart, Users, Sparkles, ArrowRight } from 'luc
 
 const About = () => {
     return (
-        <div className="min-h-screen bg-[#0a0a0a] text-white pt-[120px] pb-32 px-6 lg:px-12 relative overflow-hidden font-sans">
+        <div className="min-h-screen bg-white text-black dark:bg-[#0a0a0a] dark:text-white pt-[120px] pb-32 px-6 lg:px-12 relative overflow-hidden font-sans">
             {/* Background Effects */}
             <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
             <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />

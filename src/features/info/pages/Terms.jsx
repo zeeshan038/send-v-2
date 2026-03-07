@@ -4,7 +4,7 @@ import { CheckCircle2, ChevronRight, FileText } from 'lucide-react';
 
 const Terms = () => {
     return (
-        <div className="min-h-screen bg-[#050505] text-gray-300 pt-[120px] pb-32 px-6 lg:px-12 relative font-sans">
+        <div className="min-h-screen bg-white text-gray-800 dark:bg-[#050505] dark:text-gray-300 pt-[120px] pb-32 px-6 lg:px-12 relative font-sans">
             {/* Ambient Background Lights */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none" />

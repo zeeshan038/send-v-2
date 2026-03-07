@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-    Plus, DownloadCloud, ChevronRight, X,
+    Plus, DownloadCloud, X,
     File, Folder, Mail, Link as LinkIcon, Video,
     FileText, CheckCircle2, FolderPlus, FilePlus
 } from 'lucide-react';
@@ -34,7 +34,6 @@ const Home = () => {
         transferType, setTransferType,
         uploadedFiles,
         selectedMethod, setSelectedMethod,
-        linkShareType, setLinkShareType,
         selfDestruct, setSelfDestruct,
         expiresIn, setExpiresIn,
         handleFiles, removeFile,
@@ -44,6 +43,7 @@ const Home = () => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [addMenuOpen, setAddMenuOpen] = useState(false);
+    const [plusClicked, setPlusClicked] = useState(false);
     const fileInputRef = useRef(null);
     const folderInputRef = useRef(null);
     const addMenuRef = useRef(null);
@@ -210,25 +210,94 @@ const Home = () => {
                                         className="overflow-hidden mb-3"
                                     >
                                         <motion.div
-                                            whileHover={{ scale: 1.02 }}
+                                            whileHover="hovered"
                                             whileTap={{ scale: 0.98 }}
-                                            onClick={() => fileInputRef.current?.click()}
+                                            onClick={() => {
+                                                setPlusClicked(true);
+                                                transferType === 'folders' ? folderInputRef.current?.click() : fileInputRef.current?.click();
+                                            }}
                                             onDrop={handleDrop}
                                             onDragOver={handleDragOver}
                                             onDragLeave={handleDragLeave}
-                                            className={`group relative border-2 border-dashed rounded-[20px] py-3 flex flex-col items-center justify-center text-center transition-all cursor-pointer overflow-hidden
-                                            ${isDragging
-                                                    ? 'border-blue-500 bg-blue-50 scale-[1.02]'
+                                            className={`relative border-2 border-dashed rounded-[20px] py-4 flex flex-col items-center justify-center text-center transition-colors cursor-pointer overflow-hidden group
+                                                ${isDragging
+                                                    ? 'border-blue-500 bg-blue-50'
                                                     : 'border-blue-200/80 bg-gradient-to-b from-[#f8fbff] to-white hover:border-blue-400 hover:bg-blue-50/50'
                                                 }`}
                                         >
-                                            <div className="absolute inset-0 bg-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                            <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center mb-1.5 shadow-[0_8px_16px_rgba(30,66,159,0.08)] group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 ring-1 ring-black/5">
-                                                <Plus className="w-4 h-4 text-blue-600 transition-transform duration-500 ease-in-out group-hover:rotate-[360deg]" />
+                                            {/* Background tint */}
+                                            <motion.div
+                                                className="absolute inset-0 bg-blue-400/5"
+                                                initial={{ opacity: 0 }}
+                                                variants={{ hovered: { opacity: 1 } }}
+                                                transition={{ duration: 0.3 }}
+                                            />
+
+                                            {/* Plus button with animations */}
+                                            <div className="relative w-14 h-14 flex items-center justify-center mb-3">
+                                                {/* Orbiting ring */}
+                                                <motion.div
+                                                    className="absolute inset-[-6px] rounded-full border-[2px] border-dashed border-blue-400"
+                                                    initial={{ opacity: 0, rotate: 0 }}
+                                                    variants={{ hovered: { opacity: 1 } }}
+                                                    animate={{ rotate: 360 }}
+                                                    transition={{
+                                                        rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+                                                        opacity: { duration: 0.3 }
+                                                    }}
+                                                />
+                                                {/* Second counter-orbiting ring */}
+                                                <motion.div
+                                                    className="absolute inset-[-12px] rounded-full border border-blue-300/40"
+                                                    initial={{ opacity: 0, rotate: 0 }}
+                                                    variants={{ hovered: { opacity: 1 } }}
+                                                    animate={{ rotate: -360 }}
+                                                    transition={{
+                                                        rotate: { duration: 7, repeat: Infinity, ease: "linear" },
+                                                        opacity: { duration: 0.4, delay: 0.1 }
+                                                    }}
+                                                />
+                                                {/* Burst ripple on click */}
+                                                <AnimatePresence>
+                                                    {plusClicked && (
+                                                        <motion.div
+                                                            key="burst"
+                                                            className="absolute inset-0 rounded-full bg-blue-400"
+                                                            initial={{ scale: 0.6, opacity: 0.6 }}
+                                                            animate={{ scale: 2.8, opacity: 0 }}
+                                                            exit={{ opacity: 0 }}
+                                                            transition={{ duration: 0.5, ease: "easeOut" }}
+                                                            onAnimationComplete={() => setPlusClicked(false)}
+                                                        />
+                                                    )}
+                                                </AnimatePresence>
+                                                {/* White circle bg */}
+                                                <motion.div
+                                                    className="absolute inset-0 bg-white rounded-full ring-1 ring-black/5"
+                                                    initial={{ boxShadow: "0 6px 16px rgba(30,66,159,0.08)" }}
+                                                    variants={{ hovered: { boxShadow: "0 12px 28px rgba(30,66,159,0.20)" } }}
+                                                    transition={{ duration: 0.4 }}
+                                                />
+                                                {/* Plus icon */}
+                                                <motion.div
+                                                    className="relative z-10 text-blue-600"
+                                                    initial={{ rotate: 0, scale: 1 }}
+                                                    variants={{ hovered: { rotate: 45, scale: 1.2 } }}
+                                                    whileTap={{ scale: 0.7, rotate: 90 }}
+                                                    transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                                                >
+                                                    <Plus className="w-5 h-5" />
+                                                </motion.div>
                                             </div>
-                                            <span className="text-[13px] font-bold text-gray-800 mb-0.5 group-hover:text-blue-700 transition-colors">
+
+                                            <motion.span
+                                                className="text-[13px] font-bold mb-0.5"
+                                                initial={{ color: "#1f2937" }}
+                                                variants={{ hovered: { color: "#1d4ed8" } }}
+                                                transition={{ duration: 0.2 }}
+                                            >
                                                 {isDragging ? 'Drop to upload' : `Upload ${transferType}`}
-                                            </span>
+                                            </motion.span>
                                             <span className="text-[11px] text-gray-500 font-medium px-4">
                                                 Fast transfer up to <strong className="text-gray-700">50 GB</strong>
                                             </span>
@@ -288,57 +357,67 @@ const Home = () => {
                                             </span>
 
                                             {/* + Add menu */}
-                                            <div className="relative" ref={addMenuRef}>
+                                            {transferType === 'video' ? (
                                                 <motion.button
                                                     whileHover={{ scale: 1.06 }}
                                                     whileTap={{ scale: 0.94 }}
-                                                    onClick={() => setAddMenuOpen(prev => !prev)}
+                                                    onClick={() => fileInputRef.current?.click()}
                                                     className="cursor-pointer flex items-center gap-1 text-[11px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-2.5 py-1 transition-all"
                                                 >
-                                                    Add more
+                                                    Add video
                                                     <span className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
                                                         <Plus className="w-2.5 h-2.5 text-white" />
                                                     </span>
                                                 </motion.button>
+                                            ) : (
+                                                <div className="relative" ref={addMenuRef}>
+                                                    <motion.button
+                                                        whileHover={{ scale: 1.06 }}
+                                                        whileTap={{ scale: 0.94 }}
+                                                        onClick={() => setAddMenuOpen(prev => !prev)}
+                                                        className="cursor-pointer flex items-center gap-1 text-[11px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-2.5 py-1 transition-all"
+                                                    >
+                                                        Add more
+                                                        <span className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
+                                                            <Plus className="w-2.5 h-2.5 text-white" />
+                                                        </span>
+                                                    </motion.button>
 
-                                                <AnimatePresence>
-                                                    {addMenuOpen && (
-                                                        <motion.div
-                                                            initial={{ opacity: 0, scale: 0.92, y: -4 }}
-                                                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                                                            exit={{ opacity: 0, scale: 0.92, y: -4 }}
-                                                            transition={{ duration: 0.15, ease: 'easeOut' }}
-                                                            className="absolute right-0 top-full mt-1.5 w-[150px] bg-white border border-gray-100 rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] overflow-hidden z-50"
-                                                        >
-                                                            <button
-                                                                onClick={() => {
-                                                                    setAddMenuOpen(false);
-                                                                    fileInputRef.current?.click();
-                                                                }}
-                                                                className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                                                    <AnimatePresence>
+                                                        {addMenuOpen && (
+                                                            <motion.div
+                                                                initial={{ opacity: 0, scale: 0.92, y: -4 }}
+                                                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                                                exit={{ opacity: 0, scale: 0.92, y: -4 }}
+                                                                transition={{ duration: 0.15, ease: 'easeOut' }}
+                                                                className="absolute right-0 top-full mt-1.5 w-[150px] bg-white border border-gray-100 rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] overflow-hidden z-50"
                                                             >
-                                                                <FilePlus className="w-3.5 h-3.5" />
-                                                                {transferType === 'video' ? 'Add Video' : 'Add File'}
-                                                            </button>
-                                                            {transferType !== 'video' && (
-                                                                <>
-                                                                    <div className="h-px bg-gray-100 mx-2" />
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            setAddMenuOpen(false);
-                                                                            folderInputRef.current?.click();
-                                                                        }}
-                                                                        className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
-                                                                    >
-                                                                        <FolderPlus className="w-3.5 h-3.5" />
-                                                                        Add Folder
-                                                                    </button>
-                                                                </>
-                                                            )}
-                                                        </motion.div>
-                                                    )}
-                                                </AnimatePresence>
-                                            </div>
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setAddMenuOpen(false);
+                                                                        fileInputRef.current?.click();
+                                                                    }}
+                                                                    className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                                                                >
+                                                                    <FilePlus className="w-3.5 h-3.5" />
+                                                                    Add File
+                                                                </button>
+                                                                <div className="h-px bg-gray-100 mx-2" />
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setAddMenuOpen(false);
+                                                                        folderInputRef.current?.click();
+                                                                    }}
+                                                                    className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                                                                >
+                                                                    <FolderPlus className="w-3.5 h-3.5" />
+                                                                    Add Folder
+                                                                </button>
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
+                                                </div>
+                                            )}
                                         </div>
                                     </motion.div>
                                 )}
@@ -454,9 +533,22 @@ const Home = () => {
                                     >
                                         <div className="flex flex-col gap-4">
 
-
-
-
+                                            {/* Video Message Field */}
+                                            <AnimatePresence>
+                                                {transferType === 'video' && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, height: 0 }}
+                                                        animate={{ opacity: 1, height: 'auto' }}
+                                                        exit={{ opacity: 0, height: 0 }}
+                                                        className="overflow-hidden"
+                                                    >
+                                                        <div className="relative group/input">
+                                                            <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-200 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 group-focus-within/input:border-blue-400 group-focus-within/input:bg-white group-hover/input:border-gray-300" />
+                                                            <textarea placeholder="Message" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 placeholder-gray-400 font-medium px-2.5 py-2 z-10 resize-none h-[60px]" />
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
 
                                             {/* Self Destruct */}
                                             <motion.div

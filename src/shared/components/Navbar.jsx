@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/logo2.png';
 
@@ -27,12 +27,12 @@ const Navbar = () => {
             {/* Right: Actions */}
             <div className="flex items-center gap-3">
                 {/* Nav Menu Pill */}
-                <div className="flex items-center bg-white rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.06)] px-2 py-1.5 border border-gray-100">
+                <div className="flex items-center bg-white dark:bg-zinc-900 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.06)] px-2 py-1.5 border border-gray-100 dark:border-zinc-800">
                     {navItems.map((item) => (
                         <Link
                             key={item.path}
                             to={item.path}
-                            className={`px-4 py-2 rounded-full text-[14px] font-bold transition-colors ${isActive(item.path) ? 'text-[#1e2a6a] bg-blue-50/60' : 'text-[#334155] hover:text-[#1e2a6a]'
+                            className={`px-4 py-2 rounded-full text-[14px] font-bold transition-colors ${isActive(item.path) ? 'text-[#1e2a6a] dark:text-blue-400 bg-blue-50/60 dark:bg-blue-500/10' : 'text-[#334155] dark:text-gray-300 hover:text-[#1e2a6a] dark:hover:text-white'
                                 }`}
                         >
                             {item.name}
@@ -41,8 +41,8 @@ const Navbar = () => {
                 </div>
 
                 {/* Auth Pill */}
-                <div className="flex items-center bg-white rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.06)] pl-5 pr-1.5 py-1.5 border border-gray-100 gap-3">
-                    <Link to="/login" className="text-[14px] font-bold text-[#1e2a6a] hover:text-[#2b3a8c] transition-colors pr-1">
+                <div className="flex items-center bg-white dark:bg-zinc-900 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.06)] pl-5 pr-1.5 py-1.5 border border-gray-100 dark:border-zinc-800 gap-3">
+                    <Link to="/login" className="text-[14px] font-bold text-[#1e2a6a] dark:text-gray-300 hover:text-[#2b3a8c] dark:hover:text-white transition-colors pr-1">
                         Sign in
                     </Link>
 

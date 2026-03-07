@@ -4,7 +4,7 @@ import { Mail, MapPin, Phone, Send, ArrowRight } from 'lucide-react';
 
 const Contact = () => {
     return (
-        <div className="min-h-screen bg-[#050505] text-white pt-[120px] pb-24 px-6 lg:px-12 relative overflow-hidden font-sans">
+        <div className="min-h-screen bg-white text-black dark:bg-[#050505] dark:text-white pt-[120px] pb-24 px-6 lg:px-12 relative overflow-hidden font-sans">
             {/* Dynamic Background */}
             <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[100px] pointer-events-none" />

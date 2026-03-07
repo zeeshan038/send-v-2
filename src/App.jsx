@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { UploadProvider } from './shared/context/UploadContext';
+import { ThemeProvider } from './shared/context/ThemeContext';
 import Navbar from './shared/components/Navbar';
 import Home from './features/home/pages/home';
 import Login from './features/auth/pages/login';
@@ -23,32 +24,34 @@ import Contact from './features/info/pages/Contact';
 
 function App() {
   return (
-    <UploadProvider>
-      <div className="w-full min-h-screen relative font-sans">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+    <ThemeProvider>
+      <UploadProvider>
+        <div className="w-full min-h-screen relative font-sans transition-colors duration-300 dark:bg-gray-900 bg-white">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          <Route path="/my-account" element={<Account />}>
-            <Route index element={<Navigate to="uploads" replace />} />
-            <Route path="uploads" element={<UploadsTab />} />
-            <Route path="received" element={<ReceivedFilesTab />} />
-            <Route path="videos" element={<VideosTab />} />
-            <Route path="backgrounds" element={<BackgroundsTab />} />
-            <Route path="sub-users" element={<SubUsersTab />} />
-            <Route path="password" element={<PasswordTab />} />
-            <Route path="settings" element={<SettingsTab />} />
-          </Route>
+            <Route path="/my-account" element={<Account />}>
+              <Route index element={<Navigate to="uploads" replace />} />
+              <Route path="uploads" element={<UploadsTab />} />
+              <Route path="received" element={<ReceivedFilesTab />} />
+              <Route path="videos" element={<VideosTab />} />
+              <Route path="backgrounds" element={<BackgroundsTab />} />
+              <Route path="sub-users" element={<SubUsersTab />} />
+              <Route path="password" element={<PasswordTab />} />
+              <Route path="settings" element={<SettingsTab />} />
+            </Route>
 
-          {/* Info Pages Routes */}
-          <Route path="/about" element={<About />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </div>
-    </UploadProvider>
+            {/* Info Pages Routes */}
+            <Route path="/about" element={<About />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </div>
+      </UploadProvider>
+    </ThemeProvider>
   );
 }
 
