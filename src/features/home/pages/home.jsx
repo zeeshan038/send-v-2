@@ -36,6 +36,7 @@ const Home = () => {
         selectedMethod, setSelectedMethod,
         selfDestruct, setSelfDestruct,
         expiresIn, setExpiresIn,
+        message, setMessage,
         handleFiles, removeFile,
         hasFiles
     } = useUpload();
@@ -76,7 +77,7 @@ const Home = () => {
     };
 
     const totalSize = uploadedFiles.reduce((acc, file) => acc + file.size, 0);
-    const MAX_SIZE = 7 * 1024 * 1024 * 1024; // 7GB
+    const MAX_SIZE = 7 * 1024 * 1024 * 1024;
 
     const UPLOAD_TYPES = [
         { id: 'files', label: 'Files', icon: File },
@@ -118,15 +119,15 @@ const Home = () => {
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
-                    className={`w-[320px] bg-white/95 backdrop-blur-2xl border border-white shadow-[0_40px_100px_rgba(43,58,140,0.15)] flex flex-col pointer-events-auto relative z-20 transition-all duration-500 ring-1 ring-black/5 max-h-[500px] overflow-hidden ${isSettingsOpen ? 'rounded-l-[24px] rounded-r-none' : 'rounded-[24px]'}`}
+                    className={`w-[320px] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-white dark:border-zinc-800 shadow-[0_40px_100px_rgba(43,58,140,0.15)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto relative z-20 transition-all duration-500 ring-1 ring-black/5 dark:ring-white/5 max-h-[500px] overflow-hidden ${isSettingsOpen ? 'rounded-l-[24px] rounded-r-none' : 'rounded-[24px]'}`}
                 >
                     <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
-                    <div className="flex flex-col h-full relative z-10 bg-white/40 rounded-[inherit] min-h-0">
+                    <div className="flex flex-col h-full relative z-10 bg-white/40 dark:bg-zinc-900/40 rounded-[inherit] min-h-0">
 
-                        <div className="px-3 pt-3 pb-2 flex items-center justify-between border-b border-gray-100/80 shrink-0">
-                            <h2 className="text-[13px] font-extrabold text-[#1e2a6a] flex items-center gap-1.5">
-                                <div className="bg-blue-100/50 p-1 rounded-lg text-blue-600 shadow-inner">
+                        <div className="px-3 pt-3 pb-2 flex items-center justify-between border-b border-gray-100/80 dark:border-zinc-800 shrink-0">
+                            <h2 className="text-[13px] font-extrabold text-[#1e2a6a] dark:text-blue-400 flex items-center gap-1.5">
+                                <div className="bg-blue-100/50 dark:bg-blue-900/30 p-1 rounded-lg text-blue-600 dark:text-blue-400 shadow-inner dark:shadow-none">
                                     <DownloadCloud className="w-3.5 h-3.5" />
                                 </div>
                                 Transfer files
@@ -137,15 +138,15 @@ const Home = () => {
                                         initial={{ opacity: 0, x: 10 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: 10 }}
-                                        className="text-[11px] font-semibold text-gray-400 bg-gray-50/80 px-2 py-0.5 rounded-md border border-gray-100/50"
+                                        className="text-[11px] font-semibold text-gray-400 dark:text-zinc-500 bg-gray-50/80 dark:bg-zinc-800/80 px-2 py-0.5 rounded-md border border-gray-100/50 dark:border-zinc-700/50"
                                     >
-                                        <span className="text-[#2b3a8c]">{formatBytes(totalSize)}</span> / 7 GB
+                                        <span className="text-[#2b3a8c] dark:text-blue-400">{formatBytes(totalSize)}</span> / 7 GB
                                     </motion.div>
                                 )}
                             </AnimatePresence>
                         </div>
 
-                        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2">
+                        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide px-3 py-2">
 
                             <AnimatePresence>
                                 {!hasFiles && (
@@ -157,17 +158,17 @@ const Home = () => {
                                         transition={{ duration: 0.25 }}
                                         className="overflow-hidden"
                                     >
-                                        <div className="flex gap-1.5 mb-2 p-0.5 bg-gray-50/80 rounded-xl border border-gray-100/50 relative overflow-hidden">
+                                        <div className="flex gap-1.5 mb-2 p-0.5 bg-gray-50/80 dark:bg-zinc-800/80 rounded-xl border border-gray-100/50 dark:border-zinc-700/50 relative overflow-hidden">
                                             {UPLOAD_TYPES.map(({ id, label, icon: Icon }) => (
                                                 <motion.button
                                                     key={id}
                                                     onClick={() => setTransferType(id)}
-                                                    className={`relative z-10 cursor-pointer flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg text-[11px] font-bold transition-colors ${transferType === id ? 'text-blue-700' : 'text-gray-500 hover:text-gray-700'}`}
+                                                    className={`relative z-10 cursor-pointer flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg text-[11px] font-bold transition-colors ${transferType === id ? 'text-blue-700 dark:text-blue-400' : 'text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200'}`}
                                                 >
                                                     {transferType === id && (
                                                         <motion.div
                                                             layoutId="activeTab"
-                                                            className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100"
+                                                            className="absolute inset-0 bg-white dark:bg-zinc-700 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-zinc-600"
                                                             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                                         />
                                                     )}
@@ -221,8 +222,8 @@ const Home = () => {
                                             onDragLeave={handleDragLeave}
                                             className={`relative border-2 border-dashed rounded-[20px] py-4 flex flex-col items-center justify-center text-center transition-colors cursor-pointer overflow-hidden group
                                                 ${isDragging
-                                                    ? 'border-blue-500 bg-blue-50'
-                                                    : 'border-blue-200/80 bg-gradient-to-b from-[#f8fbff] to-white hover:border-blue-400 hover:bg-blue-50/50'
+                                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                                                    : 'border-blue-200/80 dark:border-blue-500/30 bg-gradient-to-b from-[#f8fbff] to-white dark:from-zinc-900 dark:to-zinc-800 hover:border-blue-400 dark:hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/10'
                                                 }`}
                                         >
                                             {/* Background tint */}
@@ -273,7 +274,7 @@ const Home = () => {
                                                 </AnimatePresence>
                                                 {/* White circle bg */}
                                                 <motion.div
-                                                    className="absolute inset-0 bg-white rounded-full ring-1 ring-black/5"
+                                                    className="absolute inset-0 bg-white dark:bg-zinc-800 rounded-full ring-1 ring-black/5 dark:ring-white/10"
                                                     initial={{ boxShadow: "0 6px 16px rgba(30,66,159,0.08)" }}
                                                     variants={{ hovered: { boxShadow: "0 12px 28px rgba(30,66,159,0.20)" } }}
                                                     transition={{ duration: 0.4 }}
@@ -290,16 +291,13 @@ const Home = () => {
                                                 </motion.div>
                                             </div>
 
-                                            <motion.span
-                                                className="text-[13px] font-bold mb-0.5"
-                                                initial={{ color: "#1f2937" }}
-                                                variants={{ hovered: { color: "#1d4ed8" } }}
-                                                transition={{ duration: 0.2 }}
+                                            <span
+                                                className="text-[13px] font-bold mb-0.5 text-gray-800 dark:text-gray-200 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors"
                                             >
                                                 {isDragging ? 'Drop to upload' : `Upload ${transferType}`}
-                                            </motion.span>
-                                            <span className="text-[11px] text-gray-500 font-medium px-4">
-                                                Fast transfer up to <strong className="text-gray-700">50 GB</strong>
+                                            </span>
+                                            <span className="text-[11px] text-gray-500 dark:text-zinc-400 font-medium px-4">
+                                                Fast transfer up to <strong className="text-gray-700 dark:text-zinc-200">50 GB</strong>
                                             </span>
                                         </motion.div>
                                     </motion.div>
@@ -314,7 +312,7 @@ const Home = () => {
                                         exit={{ opacity: 0, height: 0 }}
                                         className="mb-2 overflow-hidden"
                                     >
-                                        <div className="flex flex-col gap-1.5 max-h-[90px] overflow-y-auto pr-1">
+                                        <div className="flex flex-col gap-1.5 max-h-[90px] overflow-y-auto scrollbar-hide pr-1">
                                             {uploadedFiles.map((file, idx) => (
                                                 <motion.div
                                                     key={idx}
@@ -322,11 +320,11 @@ const Home = () => {
                                                     animate={{ opacity: 1, x: 0 }}
                                                     exit={{ opacity: 0, x: -10 }}
                                                     transition={{ delay: idx * 0.04 }}
-                                                    className="flex items-center gap-2 bg-blue-50/80 border border-blue-100 rounded-xl px-2.5 py-1.5"
+                                                    className="flex items-center gap-2 bg-blue-50/80 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl px-2.5 py-1.5"
                                                 >
-                                                    <FileText className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                                                    <span className="text-[11px] font-semibold text-gray-700 flex-1 truncate">{file.name}</span>
-                                                    <span className="text-[10px] text-gray-400 shrink-0">{formatBytes(file.size)}</span>
+                                                    <FileText className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400 shrink-0" />
+                                                    <span className="text-[11px] font-semibold text-gray-700 dark:text-zinc-200 flex-1 truncate">{file.name}</span>
+                                                    <span className="text-[10px] text-gray-400 dark:text-zinc-500 shrink-0">{formatBytes(file.size)}</span>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); removeFile(idx); }}
                                                         className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
@@ -350,8 +348,8 @@ const Home = () => {
                                         transition={{ duration: 0.25 }}
                                         className="overflow-visible mb-2"
                                     >
-                                        <div className="flex items-center justify-between bg-gray-50/80 border border-gray-100/60 rounded-xl px-2.5 py-1.5">
-                                            <span className="text-[12px] font-semibold text-gray-600 flex items-center gap-1.5">
+                                        <div className="flex items-center justify-between bg-gray-50/80 dark:bg-zinc-800/80 border border-gray-100/60 dark:border-zinc-700/60 rounded-xl px-2.5 py-1.5">
+                                            <span className="text-[12px] font-semibold text-gray-600 dark:text-zinc-300 flex items-center gap-1.5">
                                                 <CheckCircle2 className="w-3.5 h-3.5 text-blue-500" />
                                                 {uploadedFiles.length} {uploadedFiles.length === 1 ? 'item' : 'items'}
                                             </span>
@@ -362,7 +360,7 @@ const Home = () => {
                                                     whileHover={{ scale: 1.06 }}
                                                     whileTap={{ scale: 0.94 }}
                                                     onClick={() => fileInputRef.current?.click()}
-                                                    className="cursor-pointer flex items-center gap-1 text-[11px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-2.5 py-1 transition-all"
+                                                    className="cursor-pointer flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 border border-blue-100 dark:border-blue-800 rounded-xl px-2.5 py-1 transition-all"
                                                 >
                                                     Add video
                                                     <span className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
@@ -375,7 +373,7 @@ const Home = () => {
                                                         whileHover={{ scale: 1.06 }}
                                                         whileTap={{ scale: 0.94 }}
                                                         onClick={() => setAddMenuOpen(prev => !prev)}
-                                                        className="cursor-pointer flex items-center gap-1 text-[11px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-2.5 py-1 transition-all"
+                                                        className="cursor-pointer flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 border border-blue-100 dark:border-blue-800 rounded-xl px-2.5 py-1 transition-all"
                                                     >
                                                         Add more
                                                         <span className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
@@ -390,25 +388,25 @@ const Home = () => {
                                                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                                                 exit={{ opacity: 0, scale: 0.92, y: -4 }}
                                                                 transition={{ duration: 0.15, ease: 'easeOut' }}
-                                                                className="absolute right-0 top-full mt-1.5 w-[150px] bg-white border border-gray-100 rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] overflow-hidden z-50"
+                                                                className="absolute right-0 top-full mt-1.5 w-[150px] bg-white dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.5)] overflow-hidden z-50"
                                                             >
                                                                 <button
                                                                     onClick={() => {
                                                                         setAddMenuOpen(false);
                                                                         fileInputRef.current?.click();
                                                                     }}
-                                                                    className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                                                                    className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 dark:text-zinc-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
                                                                 >
                                                                     <FilePlus className="w-3.5 h-3.5" />
                                                                     Add File
                                                                 </button>
-                                                                <div className="h-px bg-gray-100 mx-2" />
+                                                                <div className="h-px bg-gray-100 dark:bg-zinc-700 mx-2" />
                                                                 <button
                                                                     onClick={() => {
                                                                         setAddMenuOpen(false);
                                                                         folderInputRef.current?.click();
                                                                     }}
-                                                                    className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                                                                    className="cursor-pointer w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[12px] font-semibold text-gray-700 dark:text-zinc-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
                                                                 >
                                                                     <FolderPlus className="w-3.5 h-3.5" />
                                                                     Add Folder
@@ -444,8 +442,8 @@ const Home = () => {
                                                         onClick={() => setSelectedMethod(prev => prev === id ? null : id)}
                                                         className={`cursor-pointer relative flex items-center gap-1.5 py-1.5 px-3 rounded-xl border transition-all font-semibold text-[12px]
                                                         ${isActive
-                                                                ? `${lightBg} ${lightText} border-transparent ring-2 ${ring} shadow-sm`
-                                                                : 'bg-gray-50 text-gray-500 border-gray-100 hover:bg-gray-100 hover:text-gray-700'
+                                                                ? `${lightBg} ${lightText} border-transparent ring-2 ${ring} shadow-sm dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-500/40`
+                                                                : 'bg-gray-50 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 border-gray-100 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-zinc-700 hover:text-gray-700 dark:hover:text-zinc-200'
                                                             }`}
                                                     >
                                                         <Icon className="w-3.5 h-3.5 relative z-10 shrink-0" />
@@ -479,24 +477,24 @@ const Home = () => {
                                         <div className="flex flex-col gap-1.5 mb-2 pr-1">
                                             {/* Email to */}
                                             <div className="relative group/input">
-                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-200 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 group-focus-within/input:border-blue-400 group-focus-within/input:bg-white group-hover/input:border-gray-300" />
-                                                <input type="email" placeholder="Email to" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 placeholder-gray-400 font-semibold px-2.5 py-2 z-10" />
+                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
+                                                <input type="email" placeholder="Email to" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10" />
                                             </div>
                                             {/* Your email */}
                                             <div className="relative group/input">
-                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-200 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 group-focus-within/input:border-blue-400 group-focus-within/input:bg-white group-hover/input:border-gray-300" />
-                                                <input type="email" placeholder="Your email" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 placeholder-gray-400 font-semibold px-2.5 py-2 z-10" />
+                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
+                                                <input type="email" placeholder="Your email" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10" />
                                             </div>
                                             {/* Message */}
                                             <div className="relative group/input">
-                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-200 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 group-focus-within/input:border-blue-400 group-focus-within/input:bg-white group-hover/input:border-gray-300" />
-                                                <textarea placeholder="Message" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 placeholder-gray-400 font-medium px-2.5 py-2 z-10 resize-none h-[55px]" />
+                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
+                                                <textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-medium px-2.5 py-2 z-10 resize-none h-[55px]" />
                                             </div>
 
                                             {/* Expires In — email */}
                                             <div className="mt-1">
                                                 <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">⏰ Expires in</p>
-                                                <div className="relative flex items-center bg-gray-100 rounded-xl p-[3px] gap-[2px]">
+                                                <div className="relative flex items-center bg-gray-100 dark:bg-zinc-800 rounded-xl p-[3px] gap-[2px]">
                                                     {[{ v: '1', l: '1d' }, { v: '3', l: '3d' }, { v: '7', l: '7d' }, { v: 'never', l: '∞' }].map(({ v, l }) => (
                                                         <button
                                                             key={v}
@@ -533,59 +531,42 @@ const Home = () => {
                                     >
                                         <div className="flex flex-col gap-4">
 
-                                            {/* Video Message Field */}
-                                            <AnimatePresence>
-                                                {transferType === 'video' && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, height: 0 }}
-                                                        animate={{ opacity: 1, height: 'auto' }}
-                                                        exit={{ opacity: 0, height: 0 }}
-                                                        className="overflow-hidden"
-                                                    >
-                                                        <div className="relative group/input">
-                                                            <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-200 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 group-focus-within/input:border-blue-400 group-focus-within/input:bg-white group-hover/input:border-gray-300" />
-                                                            <textarea placeholder="Message" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 placeholder-gray-400 font-medium px-2.5 py-2 z-10 resize-none h-[60px]" />
-                                                        </div>
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
+                                            {/* Message Field */}
+                                            <div className="relative group/input">
+                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
+                                                <textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-medium px-2.5 py-2 z-10 resize-none h-[60px]" />
+                                            </div>
 
                                             {/* Self Destruct */}
                                             <motion.div
-                                                animate={selfDestruct ? {
-                                                    backgroundColor: 'rgba(254,242,242,1)',
-                                                    borderColor: 'rgba(252,165,165,0.6)',
-                                                    boxShadow: '0 0 0 3px rgba(239,68,68,0.08)',
-                                                } : {
-                                                    backgroundColor: 'rgba(249,250,251,0.8)',
-                                                    borderColor: 'rgba(243,244,246,1)',
-                                                    boxShadow: '0 0 0 0px rgba(239,68,68,0)',
+                                                animate={{
+                                                    boxShadow: selfDestruct ? '0 0 0 3px rgba(239,68,68,0.08)' : '0 0 0 0px rgba(239,68,68,0)',
                                                 }}
                                                 transition={{ duration: 0.3 }}
-                                                className="flex items-center justify-between border rounded-xl px-2.5 py-2 cursor-pointer"
+                                                className={`flex items-center justify-between border rounded-xl px-2.5 py-2 cursor-pointer transition-colors duration-300 ${selfDestruct ? 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50' : 'bg-gray-50/80 dark:bg-zinc-800 border-gray-100 dark:border-zinc-700'}`}
                                                 onClick={() => setSelfDestruct(prev => !prev)}
                                             >
                                                 <div className="flex items-center gap-2">
                                                     <motion.div
                                                         animate={selfDestruct ? { scale: [1, 1.3, 1], rotate: [-5, 5, -5, 0] } : { scale: 1, rotate: 0 }}
                                                         transition={{ duration: 0.5 }}
-                                                        className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm shrink-0 transition-colors duration-300 ${selfDestruct ? 'bg-red-100' : 'bg-gray-100'}`}
+                                                        className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm shrink-0 transition-colors duration-300 ${selfDestruct ? 'bg-red-100 dark:bg-red-500/20' : 'bg-gray-100 dark:bg-zinc-700'}`}
                                                     >
                                                         🔥
                                                     </motion.div>
                                                     <div className="flex flex-col">
-                                                        <span className={`text-[11px] font-bold transition-colors duration-300 ${selfDestruct ? 'text-red-600' : 'text-gray-700'}`}>
+                                                        <span className={`text-[11px] font-bold transition-colors duration-300 ${selfDestruct ? 'text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-zinc-300'}`}>
                                                             Self destruct
                                                         </span>
-                                                        <span className="text-[9px] text-gray-400 font-medium">Delete after first download</span>
+                                                        <span className="text-[9px] text-gray-400 dark:text-zinc-500 font-medium">Delete after first download</span>
                                                     </div>
                                                 </div>
                                                 {/* Toggle Switch */}
-                                                <div className={`relative w-9 h-5 rounded-full transition-colors duration-300 shrink-0 ${selfDestruct ? 'bg-gradient-to-r from-red-400 to-orange-400 shadow-[0_0_8px_rgba(239,68,68,0.4)]' : 'bg-gray-200'}`}>
+                                                <div className={`relative w-9 h-5 rounded-full transition-colors duration-300 shrink-0 ${selfDestruct ? 'bg-gradient-to-r from-red-400 to-orange-400 dark:from-red-500 dark:to-orange-500 shadow-[0_0_8px_rgba(239,68,68,0.4)] dark:shadow-[0_0_8px_rgba(239,68,68,0.6)]' : 'bg-gray-200 dark:bg-zinc-700'}`}>
                                                     <motion.div
                                                         animate={{ x: selfDestruct ? 16 : 2 }}
                                                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                                                        className="absolute top-[2px] w-4 h-4 bg-white rounded-full shadow-md"
+                                                        className="absolute top-[2px] w-4 h-4 bg-white dark:bg-zinc-100 rounded-full shadow-md"
                                                     />
                                                 </div>
                                             </motion.div>
@@ -593,7 +574,7 @@ const Home = () => {
                                             {/* Expires In — link */}
                                             <div>
                                                 <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">⏰ Expires in</p>
-                                                <div className="relative flex items-center bg-gray-100 rounded-xl p-[3px] gap-[2px]">
+                                                <div className="relative flex items-center bg-gray-100 dark:bg-zinc-800 rounded-xl p-[3px] gap-[2px]">
                                                     {[{ v: '1', l: '1d' }, { v: '3', l: '3d' }, { v: '7', l: '7d' }, { v: 'never', l: '∞' }].map(({ v, l }) => (
                                                         <button
                                                             key={v}
@@ -621,8 +602,8 @@ const Home = () => {
                                                     <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-gray-300 text-gray-400 text-[9px] font-bold cursor-help">?</span>
                                                 </p>
                                                 <div className="relative group/input">
-                                                    <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-200 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 group-focus-within/input:border-blue-400 group-focus-within/input:bg-white group-hover/input:border-gray-300" />
-                                                    <input type="password" placeholder="Password" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 placeholder-gray-400 font-semibold px-2.5 py-2 z-10" />
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
+                                                    <input type="password" placeholder="Password" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10" />
                                                 </div>
                                             </div>
 
@@ -634,7 +615,7 @@ const Home = () => {
                         </div>{/* end scrollable content */}
 
                         {/* Transfer Button — pinned at bottom, never scrolls */}
-                        <div className="px-3 pb-3 pt-2 shrink-0 border-t border-gray-100/60">
+                        <div className="px-3 pb-3 pt-2 shrink-0 border-t border-gray-100/60 dark:border-zinc-800/60">
                             <motion.button
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo2.png';
+import logo from '../../assets/logo3.jpeg';
 
 const navItems = [
     { name: "My Account", path: "/my-account" },
@@ -21,7 +20,7 @@ const Navbar = () => {
         <nav className="absolute top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-5 bg-transparent">
             {/* Left: Logo */}
             <Link to="/" className="flex items-center transition-transform hover:opacity-90">
-                <img src={logo} alt="Logo" className="h-8 w-auto object-contain rounded-md" title="SendByCloud" />
+                <img src={logo} alt="Logo" className="h-12 w-auto object-contain rounded-md" title="SendByCloud" />
             </Link>
 
             {/* Right: Actions */}

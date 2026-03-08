@@ -1,4 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import {
+    createContext,
+    useContext,
+    useState
+} from 'react';
 
 const UploadContext = createContext(null);
 
@@ -9,11 +13,12 @@ export const UploadProvider = ({ children }) => {
     const [linkShareType, setLinkShareType] = useState('email');
     const [selfDestruct, setSelfDestruct] = useState(false);
     const [expiresIn, setExpiresIn] = useState('7');
+    const [message, setMessage] = useState('');
 
     const handleFiles = (files) => {
         const newFiles = Array.from(files);
         setUploadedFiles((prev) => [...prev, ...newFiles]);
-        if (!selectedMethod) setSelectedMethod(null);
+        if (!selectedMethod) setSelectedMethod('email');
     };
 
     const removeFile = (idx) => {
@@ -33,6 +38,7 @@ export const UploadProvider = ({ children }) => {
                 linkShareType, setLinkShareType,
                 selfDestruct, setSelfDestruct,
                 expiresIn, setExpiresIn,
+                message, setMessage,
                 handleFiles, removeFile,
                 hasFiles: uploadedFiles.length > 0
             }}

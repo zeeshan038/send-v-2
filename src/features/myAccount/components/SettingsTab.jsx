@@ -8,7 +8,6 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../../shared/context/ThemeContext';
 
-/* ── tiny reusable toggle ── */
 const Toggle = ({ checked, onChange, color = '#2b3a8c' }) => (
     <button
         onClick={() => onChange(!checked)}
@@ -26,7 +25,7 @@ const Toggle = ({ checked, onChange, color = '#2b3a8c' }) => (
 
 /* ── input field ── */
 const Field = ({ label, icon: Icon, type = 'text', placeholder, defaultValue, readOnly = false, hint, options }) => (
-    <div className="flex flex-col gap-2">
+    <div cla    ssName="flex flex-col gap-2">
         <label className="text-[13px] font-bold text-gray-700 dark:text-zinc-300 flex items-center gap-1.5 ml-1">
             {label}
         </label>
