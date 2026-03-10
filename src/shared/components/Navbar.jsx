@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogIn, UserPlus } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../../assets/logo5.jpeg';
 
 const navItems = [
-    { name: "My Account", path: "/my-account" },
-    { name: "Terms of service", path: "/terms" },
-    { name: "About Us", path: "/about" },
-    { name: "Contact Us", path: "/contact" },
+    { name: "Send files", path: "/" },
+    { name: "Features", path: "/features", hasDropdown: true },
+    { name: "Pricing", path: "/pricing" },
+    { name: "Use cases", path: "/use-cases", hasDropdown: true },
+    { name: "Resources", path: "/resources", hasDropdown: true },
+    { name: "What's new", path: "/news" },
 ];
 
 const Navbar = () => {
@@ -18,14 +20,6 @@ const Navbar = () => {
     useEffect(() => {
         setIsMenuOpen(false);
     }, [location.pathname]);
-
-    useEffect(() => {
-        if (isMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }, [isMenuOpen]);
 
     const isActive = (path) => {
         if (path === '/' && location.pathname !== '/') return false;
@@ -38,24 +32,14 @@ const Navbar = () => {
                 {/* Mobile: Burger Toggle (Left) */}
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="flex md:hidden items-center justify-center w-10 h-10 z-[100] transition-transform active:scale-90"
+                    className="flex md:hidden items-center justify-center w-8 h-8 z-[100] transition-transform active:scale-90"
                     aria-label="Toggle menu"
                 >
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={isMenuOpen ? 'close' : 'menu'}
-                            initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
-                            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                            exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            {isMenuOpen ? (
-                                <X className="w-8 h-6 text-black dark:text-white" />
-                            ) : (
-                                <Menu className="w-8 h-6 text-black dark:text-white" />
-                            )}
-                        </motion.div>
-                    </AnimatePresence>
+                    {isMenuOpen ? (
+                        <X className="w-6 h-6 text-black/70 dark:text-white/70" />
+                    ) : (
+                        <Menu className="w-6 h-6 text-black/70 dark:text-white/70" />
+                    )}
                 </button>
 
                 {/* Logo (Centered on Mobile, Left on Desktop) */}
@@ -85,10 +69,10 @@ const Navbar = () => {
                         ))}
                     </div>
 
-                    {/* Mobile Only: Sign up text */}
+                    {/* Sign up (Visible on all screens) */}
                     <Link
                         to="/register"
-                        className="md:hidden text-[15px] font-bold text-zinc-900 dark:text-zinc-100 px-2"
+                        className="text-[14px] md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 px-2 hover:opacity-70 transition-opacity"
                     >
                         Sign up
                     </Link>
@@ -105,67 +89,41 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Dropdown Menu */}
             <AnimatePresence>
                 {isMenuOpen && (
                     <>
-                        {/* Backdrop */}
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] lg:hidden"
-                        />
-
-                        {/* Menu Content */}
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 h-full w-[85%] max-w-xs bg-white dark:bg-zinc-950 shadow-2xl z-[60] md:hidden flex flex-col"
+                            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute top-[calc(100%+8px)] left-3 right-3 bg-white dark:bg-zinc-900 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-[24px] z-[110] md:hidden border border-gray-100 dark:border-zinc-800 overflow-hidden"
                         >
-                            <div className="flex flex-col h-full pt-24 pb-10 px-6">
-                                {/* Nav Links */}
-                                <div className="flex flex-col gap-2 mb-10">
-                                    <p className="text-[11px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider mb-2 px-4">Menu</p>
-                                    {navItems.map((item) => (
-                                        <div key={item.path}>
-                                            <Link
-                                                to={item.path}
-                                                className={`flex items-center px-4 py-3.5 rounded-2xl text-[16px] font-bold transition-all ${isActive(item.path)
-                                                    ? 'bg-blue-50 dark:bg-blue-500/10 text-[#2e3e8e] dark:text-blue-400'
-                                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'
-                                                    }`}
-                                            >
+                            <div className="flex flex-col py-4">
+                                {navItems.map((item, index) => (
+                                    <div key={item.path} className="flex flex-col">
+                                        <Link
+                                            to={item.path}
+                                            className={`flex items-center justify-between px-6 py-4 transition-colors group ${index === 0 ? 'text-blue-600 dark:text-blue-400' : 'text-zinc-800 dark:text-zinc-200'
+                                                } hover:bg-gray-50 dark:hover:bg-white/5`}
+                                        >
+                                            <span className="text-[17px] font-semibold tracking-tight">
                                                 {item.name}
-                                            </Link>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div className="mt-auto flex flex-col gap-4">
-                                    <p className="text-[11px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider mb-2 px-4">Account</p>
-                                    <div>
-                                        <Link
-                                            to="/login"
-                                            className="flex items-center gap-3 px-4 py-4 rounded-2xl text-[16px] font-bold text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 transition-all shadow-sm"
-                                        >
-                                            <LogIn className="w-5 h-5 text-[#2e3e8e] dark:text-blue-400" />
-                                            Sign in
+                                            </span>
+                                            {item.hasDropdown && (
+                                                <ChevronDown className="w-4 h-4 text-zinc-400 group-hover:text-zinc-600 transition-colors" />
+                                            )}
                                         </Link>
+                                        <div className="mx-6 h-[1px] bg-gray-100/80 dark:bg-zinc-800/50" />
                                     </div>
-                                    <div>
-                                        <Link
-                                            to="/register"
-                                            className="flex items-center gap-3 px-4 py-4 rounded-2xl text-[16px] font-bold text-white bg-[#2e3e8e] hover:bg-[#1e2a6a] transition-all shadow-lg active:scale-95"
-                                        >
-                                            <UserPlus className="w-5 h-5" />
-                                            Sign up
-                                        </Link>
-                                    </div>
-                                </div>
+                                ))}
+                                <Link
+                                    to="/login"
+                                    className="flex items-center px-6 py-5 text-zinc-800 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                                >
+                                    <span className="text-[17px] font-semibold tracking-tight">Log in</span>
+                                </Link>
                             </div>
                         </motion.div>
                     </>
