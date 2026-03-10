@@ -33,12 +33,12 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="absolute top-0 left-0 w-full z-50 px-4 md:px-8 py-5 bg-transparent">
+        <nav className="absolute top-0 left-0 w-full z-50 px-4 md:px-6 lg:px-8 py-4 md:py-4 lg:py-5 bg-white dark:bg-zinc-950 md:bg-transparent md:dark:bg-transparent border-b border-gray-100 dark:border-zinc-900 md:border-none transition-all duration-300">
             <div className="flex items-center justify-between w-full relative max-w-[1600px] mx-auto">
                 {/* Mobile: Burger Toggle (Left) */}
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="flex lg:hidden items-center justify-center w-10 h-10 z-[100] transition-transform active:scale-90"
+                    className="flex md:hidden items-center justify-center w-10 h-10 z-[100] transition-transform active:scale-90"
                     aria-label="Toggle menu"
                 >
                     <AnimatePresence mode="wait">
@@ -57,32 +57,25 @@ const Navbar = () => {
                         </motion.div>
                     </AnimatePresence>
                 </button>
+
                 {/* Logo (Centered on Mobile, Left on Desktop) */}
                 <Link
                     to="/"
                     className="flex items-center transition-transform hover:scale-105 active:scale-95 z-10 
-                               absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
+                               absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
                 >
-                    <img src={logo} alt="Logo" className="h-6 md:h-12 w-auto object-contain rounded-md" title="SendByCloud" />
+                    <img src={logo} alt="Logo" className="h-6 md:h-8 lg:h-12 w-auto object-contain rounded-md transition-all" title="SendByCloud" />
                 </Link>
 
-                {/* Right Side: Auth/Sign-in & Nav items */}
-                <div className="flex items-center gap-2 md:gap-4">
-                    {/* Mobile Only: Sign up */}
-                    <Link
-                        to="/register"
-                        className="flex lg:hidden text-[16px] font-semibold text-zinc-900 px-2"
-                    >
-                        Sign up
-                    </Link>
-
+                {/* Right Side Actions */}
+                <div className="flex items-center gap-4">
                     {/* Desktop Nav Items */}
-                    <div className="hidden lg:flex items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] px-2 py-1.5 border border-white/20 dark:border-zinc-800/50">
+                    <div className="hidden md:flex items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] px-1.5 lg:px-2 py-1 lg:py-1.5 border border-white/20 dark:border-zinc-800/50">
                         {navItems.map((item) => (
                             <Link
                                 key={item.path}
                                 to={item.path}
-                                className={`px-4 py-2 rounded-full text-[14px] font-bold transition-all duration-200 ${isActive(item.path)
+                                className={`px-3 lg:px-4 py-1.5 lg:py-2 rounded-full text-[12px] lg:text-[14px] font-bold transition-all duration-200 ${isActive(item.path)
                                     ? 'text-[#2e3e8e] dark:text-blue-400 bg-blue-50/80 dark:bg-blue-500/10'
                                     : 'text-[#334155] dark:text-gray-300 hover:text-[#2e3e8e] dark:hover:text-white hover:bg-gray-50/50 dark:hover:bg-white/5'
                                     }`}
@@ -92,12 +85,20 @@ const Navbar = () => {
                         ))}
                     </div>
 
+                    {/* Mobile Only: Sign up text */}
+                    <Link
+                        to="/register"
+                        className="md:hidden text-[15px] font-bold text-zinc-900 dark:text-zinc-100 px-2"
+                    >
+                        Sign up
+                    </Link>
+
                     {/* Desktop Auth Actions */}
-                    <div className="hidden sm:flex items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] pl-5 pr-1.5 py-1.5 border border-white/20 dark:border-zinc-800/50 gap-3">
-                        <Link to="/login" className="text-[14px] font-bold text-[#1e2a6a] dark:text-gray-300 hover:text-[#2e3e8e] dark:hover:text-white transition-colors pr-1">
+                    <div className="hidden md:flex items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] pl-4 lg:pl-5 pr-1 lg:pr-1.5 py-1 lg:py-1.5 border border-white/20 dark:border-zinc-800/50 gap-2 lg:gap-3">
+                        <Link to="/login" className="text-[12px] lg:text-[14px] font-bold text-[#1e2a6a] dark:text-gray-300 hover:text-[#2e3e8e] dark:hover:text-white transition-colors pr-1">
                             Sign in
                         </Link>
-                        <Link to="/register" className="px-5 py-2.5 rounded-full text-[14px] font-bold text-white bg-[#2e3e8e] hover:bg-[#1e2a6a] transition-all duration-200 shadow-md hover:shadow-lg active:scale-95">
+                        <Link to="/register" className="px-3 lg:px-5 py-1.5 lg:py-2.5 rounded-full text-[12px] lg:text-[14px] font-bold text-white bg-[#2e3e8e] hover:bg-[#1e2a6a] transition-all duration-200 shadow-md hover:shadow-lg active:scale-95">
                             Sign up
                         </Link>
                     </div>
@@ -123,7 +124,7 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 h-full w-[85%] max-w-xs bg-white dark:bg-zinc-950 shadow-2xl z-[60] lg:hidden flex flex-col"
+                            className="fixed top-0 right-0 h-full w-[85%] max-w-xs bg-white dark:bg-zinc-950 shadow-2xl z-[60] md:hidden flex flex-col"
                         >
                             <div className="flex flex-col h-full pt-24 pb-10 px-6">
                                 {/* Nav Links */}
