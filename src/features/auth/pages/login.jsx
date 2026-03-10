@@ -7,7 +7,7 @@ const Login = () => {
     const [showPass, setShowPass] = useState(false);
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center font-sans dark:bg-zinc-950 bg-[#f8faff] transition-colors duration-300 px-4 py-10 relative overflow-hidden">
+        <div className="min-h-screen w-full flex items-center justify-center font-sans dark:bg-zinc-950 bg-[#f8faff] transition-colors duration-300 px-4 pt-28 pb-10 relative overflow-hidden">
 
             {/* Background Blobs */}
             <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-500 opacity-[0.03] dark:opacity-[0.05] rounded-full blur-[100px] pointer-events-none" />
@@ -19,11 +19,7 @@ const Login = () => {
                 transition={{ duration: 0.6 }}
                 className="w-full max-w-[450px] relative z-10"
             >
-                {/* Back to Home */}
-                <Link to="/" className="inline-flex items-center gap-2 text-[13px] font-bold text-gray-400 hover:text-[#2b3a8c] dark:hover:text-blue-400 transition-colors mb-8 group">
-                    <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                    Back to home
-                </Link>
+
 
                 <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl border border-white dark:border-zinc-800 shadow-[0_40px_100px_rgba(0,0,0,0.05)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.4)] rounded-[32px] p-8 md:p-10">
                     {/* Header */}

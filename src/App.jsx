@@ -24,11 +24,10 @@ import Contact from './features/info/pages/Contact';
 
 const AppContent = () => {
   const location = useLocation();
-  const hideNavbar = ['/login', '/register'].includes(location.pathname);
 
   return (
     <div className="w-full min-h-screen relative font-sans transition-colors duration-300 dark:bg-zinc-950 bg-white">
-      {!hideNavbar && <Navbar />}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
