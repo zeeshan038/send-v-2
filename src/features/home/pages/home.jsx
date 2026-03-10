@@ -151,9 +151,9 @@ const Home = ({ isNavOpen }) => {
 
                 <motion.div
                     initial={isMobile ? false : { opacity: 0, y: 100 }}
-                    animate={{ opacity: 1, y: isNavOpen ? 350 : 0 }}
+                    animate={{ opacity: 1, y: isNavOpen ? 280 : 0 }}
                     transition={{ duration: 0.6, type: "spring", bounce: 0.2 }}
-                    className={`w-full max-w-[400px] lg:w-[320px] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-white dark:border-zinc-800 shadow-[0_-10px_40px_rgba(43,58,140,0.1)] sm:shadow-[0_40px_100px_rgba(43,58,140,0.15)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto relative z-20 transition-all duration-500 ring-1 ring-black/5 dark:ring-white/5 max-h-[90vh] sm:max-h-[500px] overflow-hidden rounded-[24px] ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
+                    className={`w-full max-w-[400px] lg:w-[400px] bg-white dark:bg-zinc-900 shadow-2xl flex flex-col pointer-events-auto relative z-20 transition-all duration-500 max-h-[75vh] sm:max-h-[600px] overflow-y-auto rounded-[24px] border border-gray-100 dark:border-zinc-800 ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
                 >
                     <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
