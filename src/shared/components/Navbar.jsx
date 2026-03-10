@@ -41,11 +41,21 @@ const Navbar = () => {
                     className="flex lg:hidden items-center justify-center w-10 h-10 z-[100] transition-transform active:scale-90"
                     aria-label="Toggle menu"
                 >
-                    {isMenuOpen ? (
-                        <X className="w-8 h-8 text-black" />
-                    ) : (
-                        <Menu className="w-8 h-8 text-black" />
-                    )}
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={isMenuOpen ? 'close' : 'menu'}
+                            initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                            exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            {isMenuOpen ? (
+                                <X className="w-8 h-8 text-black dark:text-white" />
+                            ) : (
+                                <Menu className="w-8 h-8 text-black dark:text-white" />
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
                 </button>
                 {/* Logo (Centered on Mobile, Left on Desktop) */}
                 <Link
@@ -119,13 +129,8 @@ const Navbar = () => {
                                 {/* Nav Links */}
                                 <div className="flex flex-col gap-2 mb-10">
                                     <p className="text-[11px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider mb-2 px-4">Menu</p>
-                                    {navItems.map((item, index) => (
-                                        <motion.div
-                                            key={item.path}
-                                            initial={{ opacity: 0, x: 20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.1 + index * 0.05 }}
-                                        >
+                                    {navItems.map((item) => (
+                                        <div key={item.path}>
                                             <Link
                                                 to={item.path}
                                                 className={`flex items-center px-4 py-3.5 rounded-2xl text-[16px] font-bold transition-all ${isActive(item.path)
@@ -135,17 +140,13 @@ const Navbar = () => {
                                             >
                                                 {item.name}
                                             </Link>
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </div>
 
                                 <div className="mt-auto flex flex-col gap-4">
                                     <p className="text-[11px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider mb-2 px-4">Account</p>
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.4 }}
-                                    >
+                                    <div>
                                         <Link
                                             to="/login"
                                             className="flex items-center gap-3 px-4 py-4 rounded-2xl text-[16px] font-bold text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 transition-all shadow-sm"
@@ -153,12 +154,8 @@ const Navbar = () => {
                                             <LogIn className="w-5 h-5 text-[#2e3e8e] dark:text-blue-400" />
                                             Sign in
                                         </Link>
-                                    </motion.div>
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.5 }}
-                                    >
+                                    </div>
+                                    <div>
                                         <Link
                                             to="/register"
                                             className="flex items-center gap-3 px-4 py-4 rounded-2xl text-[16px] font-bold text-white bg-[#2e3e8e] hover:bg-[#1e2a6a] transition-all shadow-lg active:scale-95"
@@ -166,7 +163,7 @@ const Navbar = () => {
                                             <UserPlus className="w-5 h-5" />
                                             Sign up
                                         </Link>
-                                    </motion.div>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
