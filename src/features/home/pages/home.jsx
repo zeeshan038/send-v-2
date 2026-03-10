@@ -33,12 +33,14 @@ const TRANSFER_METHODS = [
 const Home = () => {
     const {
         transferType, setTransferType,
-        uploadedFiles,
+        uploadedFiles, setUploadedFiles,
         selectedMethod, setSelectedMethod,
         selfDestruct, setSelfDestruct,
         expiresIn, setExpiresIn,
         message, setMessage,
-        handleFiles, removeFile,
+        recipients, setRecipients,
+        senderEmail, setSenderEmail,
+        handleFiles, removeFile, removeRecipient,
         hasFiles
     } = useUpload();
 
@@ -51,6 +53,32 @@ const Home = () => {
     const fileInputRef = useRef(null);
     const folderInputRef = useRef(null);
     const addMenuRef = useRef(null);
+    const [recipientInput, setRecipientInput] = useState('');
+
+    const handleRecipientKeyDown = (e) => {
+        if (['Enter', ' ', ',', 'Tab'].includes(e.key)) {
+            if (e.key !== 'Tab' || recipientInput) e.preventDefault();
+            const val = recipientInput.trim().replace(/,$/, '');
+            if (val) {
+                if (!recipients.includes(val)) {
+                    setRecipients([...recipients, val]);
+                }
+                setRecipientInput('');
+            }
+        } else if (e.key === 'Backspace' && !recipientInput && recipients.length > 0) {
+            removeRecipient(recipients.length - 1);
+        }
+    };
+
+    const handleRecipientBlur = () => {
+        const val = recipientInput.trim().replace(/,$/, '');
+        if (val) {
+            if (!recipients.includes(val)) {
+                setRecipients([...recipients, val]);
+            }
+            setRecipientInput('');
+        }
+    };
 
     useEffect(() => {
         const handler = (e) => {
@@ -486,14 +514,51 @@ const Home = () => {
                                     >
                                         <div className="flex flex-col gap-1.5 mb-2 pr-1">
                                             {/* Email to */}
-                                            <div className="relative group/input">
-                                                <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
-                                                <input type="email" placeholder="Email to" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10" />
+                                            <div className="flex flex-col gap-1.5">
+                                                {recipients.length > 0 && (
+                                                    <div className="flex flex-wrap items-center gap-1.5 px-0.5 mb-1">
+                                                        {recipients.map((email, i) => (
+                                                            <motion.div
+                                                                initial={{ scale: 0.9, opacity: 0 }}
+                                                                animate={{ scale: 1, opacity: 1 }}
+                                                                key={email}
+                                                                className="flex items-center gap-1.5 bg-[#efeff0] dark:bg-zinc-800 border border-transparent rounded-lg px-2.5 py-1 group/tag transition-all hover:bg-[#e4e4e5] dark:hover:bg-zinc-700"
+                                                            >
+                                                                <span className="text-[11px] font-bold text-[#404145] dark:text-zinc-300 leading-none">{email}</span>
+                                                                <button
+                                                                    onClick={() => removeRecipient(i)}
+                                                                    className="text-[#95979d] hover:text-[#404145] dark:text-zinc-500 dark:hover:text-zinc-200 transition-colors flex items-center justify-center cursor-pointer"
+                                                                >
+                                                                    <X className="w-3 h-3 stroke-[3]" />
+                                                                </button>
+                                                            </motion.div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                                <div className="relative group/input">
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
+                                                    <input
+                                                        type="text"
+                                                        value={recipientInput}
+                                                        onChange={(e) => setRecipientInput(e.target.value)}
+                                                        onKeyDown={handleRecipientKeyDown}
+                                                        onBlur={handleRecipientBlur}
+                                                        placeholder="Email to"
+                                                        className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10"
+                                                    />
+                                                </div>
                                             </div>
+
                                             {/* Your email */}
                                             <div className="relative group/input">
                                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
-                                                <input type="email" placeholder="Your email" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10" />
+                                                <input
+                                                    type="email"
+                                                    value={senderEmail}
+                                                    onChange={(e) => setSenderEmail(e.target.value)}
+                                                    placeholder="Your email"
+                                                    className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10"
+                                                />
                                             </div>
                                             {/* Message */}
                                             <div className="relative group/input">

@@ -14,6 +14,8 @@ export const UploadProvider = ({ children }) => {
     const [selfDestruct, setSelfDestruct] = useState(false);
     const [expiresIn, setExpiresIn] = useState('7');
     const [message, setMessage] = useState('');
+    const [recipients, setRecipients] = useState([]);
+    const [senderEmail, setSenderEmail] = useState('');
 
     const handleFiles = (files) => {
         const newFiles = Array.from(files);
@@ -50,6 +52,10 @@ export const UploadProvider = ({ children }) => {
         if (!selectedMethod) setSelectedMethod('email');
     };
 
+    const removeRecipient = (idx) => {
+        setRecipients((prev) => prev.filter((_, i) => i !== idx));
+    };
+
     const removeFile = (idx) => {
         setUploadedFiles((prev) => {
             const next = prev.filter((_, i) => i !== idx);
@@ -68,7 +74,9 @@ export const UploadProvider = ({ children }) => {
                 selfDestruct, setSelfDestruct,
                 expiresIn, setExpiresIn,
                 message, setMessage,
-                handleFiles, removeFile,
+                recipients, setRecipients,
+                senderEmail, setSenderEmail,
+                handleFiles, removeFile, removeRecipient,
                 hasFiles: uploadedFiles.length > 0
             }}
         >
