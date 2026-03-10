@@ -133,7 +133,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 w-full h-[100dvh] font-sans text-gray-900 overflow-hidden bg-gradient-to-br from-[#f0f4f9] to-[#d6e4f9] touch-none overscroll-none">
+        <div className="fixed inset-0 w-screen h-screen font-sans text-gray-900 overflow-hidden bg-gradient-to-br from-[#f0f4f9] to-[#d6e4f9] touch-none overscroll-none">
 
             <motion.div
                 animate={{ rotate: [0, 90, 180, 270, 360], scale: [1, 1.1, 1] }}
@@ -146,18 +146,18 @@ const Home = () => {
                 className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500 opacity-15 rounded-full blur-[80px] pointer-events-none"
             />
 
-            <main className="relative z-10 flex items-center justify-center w-full h-[100dvh] px-4 sm:px-6 md:px-12 lg:px-32 pointer-events-none">
+            <main className="fixed inset-0 z-10 flex items-center justify-center lg:justify-between px-4 sm:px-6 md:px-12 lg:px-32 pointer-events-none">
 
 
                 <motion.div
                     initial={isMobile ? false : { opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, type: "spring", bounce: 0.2 }}
-                    className={`w-full sm:w-[320px] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-white dark:border-zinc-800 shadow-[0_-10px_40px_rgba(43,58,140,0.1)] sm:shadow-[0_40px_100px_rgba(43,58,140,0.15)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto relative z-20 transition-all duration-500 ring-1 ring-black/5 dark:ring-white/5 max-h-[85vh] sm:max-h-[500px] overflow-hidden rounded-[24px] ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
+                    className={`w-full sm:w-[320px] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-white dark:border-zinc-800 shadow-[0_-10px_40px_rgba(43,58,140,0.1)] sm:shadow-[0_40px_100px_rgba(43,58,140,0.15)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto relative z-20 transition-all duration-500 ring-1 ring-black/5 dark:ring-white/5 max-h-[90vh] sm:max-h-[500px] overflow-hidden rounded-[24px] ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
                 >
                     <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
-                    <div className="flex flex-col h-full relative z-10 bg-white/40 dark:bg-zinc-900/40 rounded-[inherit] min-h-0">
+                    <div className="flex flex-col relative z-10 bg-white/40 dark:bg-zinc-900/40 rounded-[inherit] min-h-0">
 
                         <div className="px-3 pt-3 pb-2 flex items-center justify-between border-b border-gray-100/80 dark:border-zinc-800 shrink-0">
                             <h2 className="text-[13px] font-extrabold text-[#1e2a6a] dark:text-blue-400 flex items-center gap-1.5">
@@ -723,7 +723,7 @@ const Home = () => {
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="absolute right-4 sm:right-6 md:right-12 lg:right-32 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:flex flex-col items-end gap-6 z-0 max-w-xl"
+                    className="relative pointer-events-none hidden lg:flex flex-col items-end gap-6 z-0 max-w-xl"
                 >
                     <h1 className="text-6xl font-black tracking-tight text-[#1e2a6a] text-right leading-[1.1]">
                         Send large files with <br /> absolute <span className="relative inline-block"><span className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-indigo-400 blur-lg opacity-30"></span><span className="relative text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">simplicity</span></span>.
