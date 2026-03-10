@@ -116,8 +116,24 @@ const Home = () => {
         { id: 'video', label: 'Video', icon: Video },
     ];
 
+    useEffect(() => {
+        // Prevent body scrolling on Safari/iOS
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.height = '100%';
+        
+        return () => {
+            document.body.style.overflow = originalStyle;
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+        };
+    }, []);
+
     return (
-        <div className="relative min-h-screen w-full font-sans text-gray-900 overflow-hidden bg-gradient-to-br from-[#f0f4f9] to-[#d6e4f9]">
+        <div className="fixed inset-0 w-screen h-[100dvh] font-sans text-gray-900 overflow-hidden bg-gradient-to-br from-[#f0f4f9] to-[#d6e4f9] touch-none overscroll-none">
 
             <motion.div
                 animate={{ rotate: [0, 90, 180, 270, 360], scale: [1, 1.1, 1] }}
@@ -130,7 +146,7 @@ const Home = () => {
                 className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500 opacity-15 rounded-full blur-[80px] pointer-events-none"
             />
 
-            <main className="relative z-10 flex items-center justify-center h-screen px-4 sm:px-6 md:px-12 lg:px-32 pointer-events-none">
+            <main className="relative z-10 flex items-center justify-center w-full h-full px-4 sm:px-6 md:px-12 lg:px-32 pointer-events-none">
 
 
                 <motion.div
