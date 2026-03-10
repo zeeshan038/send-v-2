@@ -146,14 +146,14 @@ const Home = ({ isNavOpen }) => {
                 className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500 opacity-15 rounded-full blur-[80px] pointer-events-none"
             />
 
-            <main className="fixed inset-0 z-10 flex items-center justify-center sm:justify-start lg:justify-between px-4 sm:px-6 md:px-12 lg:px-32 pointer-events-none">
+            <main className="fixed inset-0 z-10 flex items-center justify-center lg:justify-between px-4 sm:px-6 md:px-12 lg:px-32 pointer-events-none">
 
 
                 <motion.div
                     initial={isMobile ? false : { opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: isNavOpen ? 280 : 0 }}
                     transition={{ duration: 0.6, type: "spring", bounce: 0.2 }}
-                    className={`w-full max-w-[400px] lg:w-[400px] bg-white dark:bg-zinc-900 shadow-2xl flex flex-col pointer-events-auto relative z-20 transition-all duration-500 max-h-[75vh] sm:max-h-[600px] overflow-y-auto rounded-[24px] border border-gray-100 dark:border-zinc-800 ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
+                    className={`w-full max-w-[400px] lg:w-[400px] bg-white dark:bg-zinc-900 shadow-2xl flex flex-col pointer-events-auto relative z-20 transition-all duration-500 max-h-[75vh] sm:max-h-[600px] overflow-y-auto overflow-x-hidden rounded-[24px] border border-gray-100 dark:border-zinc-800 ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
                 >
                     <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 

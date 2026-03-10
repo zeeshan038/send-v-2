@@ -74,10 +74,10 @@ const Navbar = ({ onMenuToggle }) => {
                         ))}
                     </div>
 
-                    {/* Sign up (Visible on mobile only) */}
+                    {/* Sign up (Visible on all screens) */}
                     <Link
                         to="/register"
-                        className="md:hidden text-[14px] font-bold text-zinc-900 dark:text-zinc-100 px-2 hover:opacity-70 transition-opacity"
+                        className="text-[14px] md:hidden md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 px-2 hover:opacity-70 transition-opacity"
                     >
                         Sign up
                     </Link>
