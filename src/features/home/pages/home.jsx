@@ -153,16 +153,16 @@ const Home = ({ isNavOpen }) => {
                     initial={isMobile ? false : { opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: isNavOpen ? 280 : 0 }}
                     transition={{ duration: 0.6, type: "spring", bounce: 0.2 }}
-                    className={`w-full max-w-[400px] lg:w-[400px] bg-white dark:bg-zinc-900 shadow-2xl flex flex-col pointer-events-auto relative z-20 transition-all duration-500 max-h-[75vh] sm:max-h-[600px] overflow-y-auto overflow-x-hidden rounded-[24px] border border-gray-100 dark:border-zinc-800 ${isSettingsOpen ? 'sm:rounded-l-[24px] sm:rounded-r-none' : 'sm:rounded-[24px]'}`}
+                    className={`w-full max-w-[300px] lg:w-[300px] bg-white dark:bg-zinc-900 shadow-2xl flex flex-col pointer-events-auto relative z-20 transition-all duration-500 max-h-[80vh] sm:max-h-[480px] overflow-y-auto overflow-x-hidden rounded-[20px] border border-gray-100 dark:border-zinc-800 ${isSettingsOpen ? 'sm:rounded-l-[20px] sm:rounded-r-none' : 'sm:rounded-[20px]'}`}
                 >
                     <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
                     <div className="flex flex-col relative z-10 bg-white/40 dark:bg-zinc-900/40 rounded-[inherit] min-h-0">
 
-                        <div className="px-3 pt-3 pb-2 flex items-center justify-between border-b border-gray-100/80 dark:border-zinc-800 shrink-0">
-                            <h2 className="text-[13px] font-extrabold text-[#1e2a6a] dark:text-blue-400 flex items-center gap-1.5">
+                        <div className="px-3 pt-2.5 pb-1.5 flex items-center justify-between border-b border-gray-100/80 dark:border-zinc-800 shrink-0">
+                            <h2 className="text-[12px] font-extrabold text-[#1e2a6a] dark:text-blue-400 flex items-center gap-1">
                                 <div className="bg-blue-100/50 dark:bg-blue-900/30 p-1 rounded-lg text-blue-600 dark:text-blue-400 shadow-inner dark:shadow-none">
-                                    <DownloadCloud className="w-3.5 h-3.5" />
+                                    <DownloadCloud className="w-3 h-3" />
                                 </div>
                                 Transfer files
                             </h2>
@@ -180,7 +180,7 @@ const Home = ({ isNavOpen }) => {
                             </AnimatePresence>
                         </div>
 
-                        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide px-3 py-2">
+                        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide px-3 py-1.5">
 
                             <AnimatePresence>
                                 {!hasFiles && (
@@ -192,7 +192,7 @@ const Home = ({ isNavOpen }) => {
                                         transition={{ duration: 0.25 }}
                                         className="overflow-hidden"
                                     >
-                                        <div className="flex gap-1.5 mb-2 p-0.5 bg-gray-50/80 dark:bg-zinc-800/80 rounded-xl border border-gray-100/50 dark:border-zinc-700/50 relative overflow-hidden">
+                                        <div className="flex gap-1.5 mb-1.5 p-0.5 bg-gray-50/80 dark:bg-zinc-800/80 rounded-xl border border-gray-100/50 dark:border-zinc-700/50 relative overflow-hidden">
                                             {UPLOAD_TYPES.map(({ id, label, icon: Icon }) => (
                                                 <motion.button
                                                     key={id}
@@ -207,7 +207,7 @@ const Home = ({ isNavOpen }) => {
                                                         />
                                                     )}
                                                     <span className="relative z-10 flex items-center gap-1">
-                                                        <Icon className="w-3.5 h-3.5" />
+                                                        <Icon className="w-3 h-3" />
                                                         {label}
                                                     </span>
                                                 </motion.button>
@@ -257,7 +257,7 @@ const Home = ({ isNavOpen }) => {
                                             onDrop={handleDrop}
                                             onDragOver={handleDragOver}
                                             onDragLeave={handleDragLeave}
-                                            className={`relative border-2 border-dashed rounded-[20px] py-4 flex flex-col items-center justify-center text-center transition-colors cursor-pointer overflow-hidden group
+                                            className={`relative border-2 border-dashed rounded-[18px] py-2 flex flex-col items-center justify-center text-center transition-colors cursor-pointer overflow-hidden group
                                                 ${isDragging
                                                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                                                     : 'border-blue-200/80 dark:border-blue-500/30 bg-gradient-to-b from-[#f8fbff] to-white dark:from-zinc-900 dark:to-zinc-800 hover:border-blue-400 dark:hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/10'
@@ -272,7 +272,7 @@ const Home = ({ isNavOpen }) => {
                                             />
 
                                             {/* Plus button with animations */}
-                                            <div className="relative w-14 h-14 flex items-center justify-center mb-3">
+                                            <div className="relative w-11 h-11 flex items-center justify-center mb-2">
                                                 {/* Orbiting ring */}
                                                 <motion.div
                                                     className="absolute inset-[-6px] rounded-full border-[2px] border-dashed border-blue-400"
@@ -324,7 +324,7 @@ const Home = ({ isNavOpen }) => {
                                                     whileTap={{ scale: 0.7, rotate: 90 }}
                                                     transition={{ type: "spring", stiffness: 300, damping: 18 }}
                                                 >
-                                                    <Plus className="w-5 h-5" />
+                                                    <Plus className="w-4 h-4" />
                                                 </motion.div>
                                             </div>
 
@@ -494,7 +494,7 @@ const Home = ({ isNavOpen }) => {
                                                         whileHover={{ scale: 1.04 }}
                                                         whileTap={{ scale: 0.96 }}
                                                         onClick={() => setSelectedMethod(prev => prev === id ? null : id)}
-                                                        className={`cursor-pointer relative flex items-center gap-1.5 py-1.5 px-3 rounded-xl border transition-all font-semibold text-[12px]
+                                                        className={`cursor-pointer relative flex items-center gap-1.5 py-1 px-2.5 rounded-xl border transition-all font-semibold text-[12px]
                                                         ${isActive
                                                                 ? `${lightBg} ${lightText} border-transparent ring-2 ${ring} shadow-sm dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-500/40`
                                                                 : 'bg-gray-50 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 border-gray-100 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-zinc-700 hover:text-gray-700 dark:hover:text-zinc-200'
@@ -560,7 +560,7 @@ const Home = ({ isNavOpen }) => {
                                                         onKeyDown={handleRecipientKeyDown}
                                                         onBlur={handleRecipientBlur}
                                                         placeholder="Email to"
-                                                        className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10"
+                                                        className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-1.5 z-10"
                                                     />
                                                 </div>
                                             </div>
@@ -573,13 +573,13 @@ const Home = ({ isNavOpen }) => {
                                                     value={senderEmail}
                                                     onChange={(e) => setSenderEmail(e.target.value)}
                                                     placeholder="Your email"
-                                                    className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10"
+                                                    className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-1.5 z-10"
                                                 />
                                             </div>
                                             {/* Message */}
                                             <div className="relative group/input">
                                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
-                                                <textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-medium px-2.5 py-2 z-10 resize-none h-[55px]" />
+                                                <textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-medium px-2.5 py-1.5 z-10 resize-none h-[45px]" />
                                             </div>
 
                                             {/* Expires In — email */}
@@ -625,7 +625,7 @@ const Home = ({ isNavOpen }) => {
                                             {/* Message Field */}
                                             <div className="relative group/input">
                                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
-                                                <textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-medium px-2.5 py-2 z-10 resize-none h-[60px]" />
+                                                <textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-medium px-2.5 py-1.5 z-10 resize-none h-[50px]" />
                                             </div>
 
                                             {/* Self Destruct */}
@@ -694,7 +694,7 @@ const Home = ({ isNavOpen }) => {
                                                 </p>
                                                 <div className="relative group/input">
                                                     <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl transition-all group-focus-within/input:ring-4 group-focus-within/input:ring-blue-100 dark:group-focus-within/input:ring-blue-900/40 group-focus-within/input:border-blue-400 dark:group-focus-within/input:border-blue-500 group-focus-within/input:bg-white dark:group-focus-within/input:bg-zinc-900 group-hover/input:border-gray-300 dark:group-hover/input:border-zinc-600" />
-                                                    <input type="password" placeholder="Password" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-2 z-10" />
+                                                    <input type="password" placeholder="Password" className="relative w-full bg-transparent outline-none text-[12px] text-gray-800 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 font-semibold px-2.5 py-1.5 z-10" />
                                                 </div>
                                             </div>
 
@@ -706,11 +706,11 @@ const Home = ({ isNavOpen }) => {
                         </div>{/* end scrollable content */}
 
                         {/* Transfer Button — pinned at bottom, never scrolls */}
-                        <div className="px-3 pb-3 pt-2 shrink-0 border-t border-gray-100/60 dark:border-zinc-800/60">
+                        <div className="px-3 pb-2.5 pt-1.5 shrink-0 border-t border-gray-100/60 dark:border-zinc-800/60">
                             <motion.button
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="cursor-pointer w-full text-white rounded-xl h-9 font-bold text-[13px] flex items-center justify-center gap-2 transition-all border bg-gradient-to-r from-[#2b3a8c] to-[#1e2a6a] hover:from-[#1e2a6a] hover:to-[#151e4d] shadow-[0_6px_16px_rgba(43,58,140,0.3)] hover:shadow-[0_10px_20px_rgba(43,58,140,0.4)] border-[#2b3a8c]"
+                                className="cursor-pointer w-full text-white rounded-xl h-8.5 font-bold text-[12px] flex items-center justify-center gap-2 transition-all border bg-gradient-to-r from-[#2b3a8c] to-[#1e2a6a] hover:from-[#1e2a6a] hover:to-[#151e4d] shadow-[0_6px_16px_rgba(43,58,140,0.3)] hover:shadow-[0_10px_20px_rgba(43,58,140,0.4)] border-[#2b3a8c]"
                             >
                                 Transfer
                             </motion.button>
@@ -725,10 +725,10 @@ const Home = ({ isNavOpen }) => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="relative pointer-events-none hidden lg:flex flex-col items-end gap-6 z-0 max-w-xl"
                 >
-                    <h1 className="text-6xl font-black tracking-tight text-[#1e2a6a] text-right leading-[1.1]">
+                    <h1 className="text-5xl font-extrabold tracking-tight text-[#1e2a6a] text-right leading-[1.1]">
                         Send large files with <br /> absolute <span className="relative inline-block"><span className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-indigo-400 blur-lg opacity-30"></span><span className="relative text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">simplicity</span></span>.
                     </h1>
-                    <p className="text-lg font-medium text-gray-600 text-right max-w-md">
+                    <p className="text-base font-medium text-gray-600 text-right max-w-md">
                         Fast, secure and beautifully designed. Share your heaviest projects without breaking a sweat.
                     </p>
                 </motion.div>

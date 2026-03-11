@@ -32,7 +32,7 @@ const Navbar = ({ onMenuToggle }) => {
     };
 
     return (
-        <nav className="absolute top-0 left-0 w-full z-50 px-4 md:px-6 lg:px-8 py-2 md:py-4 lg:py-5 bg-white dark:bg-zinc-950 md:bg-transparent md:dark:bg-transparent border-b border-gray-100 dark:border-zinc-900 md:border-none transition-all duration-300">
+        <nav className="absolute top-0 left-0 w-full z-50 px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-3.5 bg-white dark:bg-zinc-950 md:bg-transparent md:dark:bg-transparent border-b border-gray-100 dark:border-zinc-900 md:border-none transition-all duration-300">
             <div className="flex items-center justify-between w-full relative max-w-[1600px] mx-auto">
                 {/* Mobile: Burger Toggle (Left) */}
                 <button
@@ -53,7 +53,7 @@ const Navbar = ({ onMenuToggle }) => {
                     className="flex items-center transition-transform hover:scale-105 active:scale-95 z-10 
                                absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
                 >
-                    <img src={logo} alt="Logo" className="h-6 md:h-8 lg:h-12 w-auto object-contain rounded-md transition-all" title="SendByCloud" />
+                    <img src={logo} alt="Logo" className="h-6 md:h-7 lg:h-9 w-auto object-contain rounded-md transition-all" title="SendByCloud" />
                 </Link>
 
                 {/* Right Side Actions */}
