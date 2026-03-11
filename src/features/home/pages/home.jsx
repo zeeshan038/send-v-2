@@ -164,7 +164,7 @@ const Home = ({ isNavOpen }) => {
                                 <div className="bg-blue-100/50 dark:bg-blue-900/30 p-1 rounded-lg text-blue-600 dark:text-blue-400 shadow-inner dark:shadow-none">
                                     <DownloadCloud className="w-3 h-3" />
                                 </div>
-                                Transfer files
+                                Transfer {transferType === 'video' ? 'videos' : transferType}
                             </h2>
                             <AnimatePresence>
                                 {hasFiles && (
