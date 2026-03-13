@@ -77,7 +77,7 @@ const Register = () => {
             dispatch(setCredentials({ ...userData }));
             navigate('/');
         } catch (err) {
-            setErrorMsg(err?.data?.message || err?.error || 'Registration failed. Please try again.');
+            setErrorMsg(err?.data?.msg || err?.error || 'Registration failed. Please try again.');
         }
     };
 
